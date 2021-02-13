@@ -22,16 +22,6 @@ export class FirstOneComponent extends AbstractKeypress {
     super(keyService);
   }
 
-  public ngOnInit() {
-    this.keyService.keyEventObs.subscribe((x: KeyboardEvent) => {
-      console.log("first one, x=", x);
-    });
-  }
-
-  public ngOnDestroy() {
-    this.keyService.keyEventObs.unsubscribe();
-  }
-
   public reactToKeyPress(key: KeyboardEvent) {
     console.log('first one, x=', key);
   }
