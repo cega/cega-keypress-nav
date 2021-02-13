@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { KeyPressDistributionService } from '../../shared/key-press-distribution.service';
+import { KeyPressDistributionService } from '../../shared/services/key-press-distribution.service';
 
 @Component({
   selector: 'app-first-one',

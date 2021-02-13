@@ -1,6 +1,6 @@
 import { Component, Directive,  OnDestroy, OnInit } from "@angular/core";
 
-import { KeyPressDistributionService } from "../key-press-distribution.service";
+import { KeyPressDistributionService } from "../services/key-press-distribution.service";
 
 
 @Component({
