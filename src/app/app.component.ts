@@ -15,7 +15,6 @@ export class AppComponent {
 
   @HostListener("document:keypress", ["$event"])
   public onKeyUp(eventData: KeyboardEvent) {
-    console.log(eventData);
     this.keyService.distributeKeyPress(eventData.key);
   }
 
