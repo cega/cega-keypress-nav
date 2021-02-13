@@ -1,4 +1,5 @@
 import { Component, HostListener, VERSION } from "@angular/core";
+import { KeyPressDistributionService } from "./shared/key-press-distribution.service";
 
 @Component({
   selector: "my-app",
@@ -9,8 +10,13 @@ export class AppComponent {
   name = "Angular " + VERSION.major;
   title = "keypress-poc";
 
+  constructor(private keyService: KeyPressDistributionService) {
+  }
+
   @HostListener("document:keypress", ["$event"])
   public onKeyUp(eventData: KeyboardEvent) {
     console.log(eventData);
+    this.keyService.distributeKeyPress(eventData.key);
   }
+
 }

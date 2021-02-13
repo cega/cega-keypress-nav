@@ -2,17 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { KeyPressDistributionService } from '../../shared/key-press-distribution.service';
 
 @Component({
-  selector: 'app-first-one',
-  templateUrl: './first-one.component.html',
-  styleUrls: ['./first-one.component.scss']
+  selector: 'app-second',
+  templateUrl: './second.component.html',
+  styleUrls: ['./second.component.scss']
 })
-export class FirstOneComponent implements OnInit, OnDestroy {
+export class SecondComponent implements OnInit, OnDestroy {
 
   constructor(private keyService: KeyPressDistributionService) { }
 
   public ngOnInit() {
     this.keyService.keyEventObs.subscribe(
-      (x: KeyboardEvent) => { console.log('first one, x=', x)}
+      x => { console.log('second one, x=', x)}
     );
   }
 

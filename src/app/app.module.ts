@@ -5,10 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FirstOneComponent } from './components/first-one/first-one.component';
+import { SecondComponent } from './components/second/second.component';
+
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, AppRoutingModule ],
-  declarations: [ AppComponent, FirstOneComponent ],
+  declarations: [ AppComponent, FirstOneComponent, SecondComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
