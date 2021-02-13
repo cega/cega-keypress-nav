@@ -6,6 +6,7 @@ import { SecondComponent } from './components/second/second.component';
 const routes: Routes = [
   {path: 'first', component: FirstOneComponent},
   {path: 'second', component: SecondComponent},
+  {path: 'sub-mod', loadChildren: () => import('./module/example-mod/example-mod.module').then(m => m.ExampleModModule)},
   {path: '', redirectTo: 'first', pathMatch: 'full'},
 ];
 

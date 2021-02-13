@@ -1,14 +1,14 @@
-<div>
-  <ul>
-    <li>
-      <a routerLink="first">First</a>
-    </li>
-    <li>
-      <a routerLink="second">Second</a>
-    </li>
-  </ul>
-</div>
 <div (keypress)="onKeyUp($event)">
+  <header>
+    <nav>
+      <ul>
+        <li><a routerLink="">Home</a></li>
+        <li><a routerLink="first">First</a></li>
+        <li><a routerLink="second">Second</a></li>
+        <li><a routerLink="sub-mod/landing">Lazy Mod</a></li>
+      </ul>
+    </nav>
+  </header>
   <h1>Some website</h1>
   <p>Check out the event thing</p>
   <router-outlet></router-outlet>
