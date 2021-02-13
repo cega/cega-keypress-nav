@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private keyService: KeyPressDistributionService) {
   }
 
-  @HostListener("document:keypress", ["$event"])
+  @HostListener("document:keyup", ["$event"])
   public onKeyUp(eventData: KeyboardEvent) {
     this.keyService.distributeKeyPress(eventData);
   }
