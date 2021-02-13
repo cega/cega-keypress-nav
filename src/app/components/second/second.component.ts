@@ -12,7 +12,7 @@ export class SecondComponent extends AbstractKeypress {
     super(keyService);
   }
 
-  public reactToKeyPress(key: KeyboardEvent) {
+  public reactToKeyPress(key: string) {
     console.log("second one, x=", key);
   }
 }

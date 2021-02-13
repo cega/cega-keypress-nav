@@ -13,7 +13,7 @@ export class ExampleLandingComponent extends AbstractKeypress{
     super(keyService);
   }
 
-  public reactToKeyPress(key: KeyboardEvent): void {
+  public reactToKeyPress(key: string): void {
     console.log('in Example Module Component', key);
   }
 

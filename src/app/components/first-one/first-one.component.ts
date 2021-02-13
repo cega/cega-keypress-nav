@@ -22,7 +22,7 @@ export class FirstOneComponent extends AbstractKeypress {
     super(keyService);
   }
 
-  public reactToKeyPress(key: KeyboardEvent) {
+  public reactToKeyPress(key: string) {
     console.log('first one, x=', key);
   }
 
