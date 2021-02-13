@@ -1,1 +1,14 @@
 <p>first-one works!</p>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" (keypress)="stopKeyPressPropagation($event)" >
+  <ul>
+    <li>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" formControlName="name"/>
+    </li>
+    <li>
+      <label for="age">Age</label>
+      <input id="age" name="age" type="number" formControlName="age"/>
+    </li>
+  </ul>
+  <button>Submit</button>
+</form>

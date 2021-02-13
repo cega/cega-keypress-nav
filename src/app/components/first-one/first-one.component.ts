@@ -1,22 +1,47 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { KeyPressDistributionService } from '../../shared/services/key-press-distribution.service';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
+import { AbstractKeypress } from "../../shared/abstract-keypress/abstract.keypress";
+import { KeyPressDistributionService } from "../../shared/services/key-press-distribution.service";
 
 @Component({
-  selector: 'app-first-one',
-  templateUrl: './first-one.component.html',
-  styleUrls: ['./first-one.component.scss']
+  selector: "app-first-one",
+  templateUrl: "./first-one.component.html",
+  styleUrls: ["./first-one.component.scss"]
 })
-export class FirstOneComponent implements OnInit, OnDestroy {
+export class FirstOneComponent extends AbstractKeypress {
+  
+  userForm = this.fb.group({
+    name: [""],
+    age: [""]
+  });
 
-  constructor(private keyService: KeyPressDistributionService) { }
+  constructor(
+    private keyService: KeyPressDistributionService,
+    private fb: FormBuilder
+  ) {
+    super(keyService);
+  }
 
   public ngOnInit() {
-    this.keyService.keyEventObs.subscribe(
-      (x: KeyboardEvent) => { console.log('first one, x=', x)}
-    );
+    this.keyService.keyEventObs.subscribe((x: KeyboardEvent) => {
+      console.log("first one, x=", x);
+    });
   }
 
   public ngOnDestroy() {
     this.keyService.keyEventObs.unsubscribe();
+  }
+
+  public reactToKeyPress(key: string) {
+    console.log('first one, x=', key);
+  }
+
+  public onSubmit() {
+    console.log("form content", this.userForm.value);
+  }
+
+  public stopKeyPressPropagation($event:KeyboardEvent) {
+    $event.stopPropagation();
+    console.log($event);
   }
 }
