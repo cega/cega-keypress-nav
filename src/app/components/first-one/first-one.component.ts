@@ -32,7 +32,7 @@ export class FirstOneComponent extends AbstractKeypress {
     this.keyService.keyEventObs.unsubscribe();
   }
 
-  public reactToKeyPress(key: string) {
+  public reactToKeyPress(key: KeyboardEvent) {
     console.log('first one, x=', key);
   }
 

@@ -18,5 +18,5 @@ export abstract class AbstractKeypress implements OnInit, OnDestroy {
     this.keyServiceRef.keyEventObs.unsubscribe();
   }
 
-  abstract reactToKeyPress(key: string): void;
+  abstract reactToKeyPress(key: KeyboardEvent): void;
 }

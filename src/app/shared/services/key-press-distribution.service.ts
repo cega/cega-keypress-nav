@@ -6,11 +6,11 @@ import { Observable, Subject } from 'rxjs';
 })
 export class KeyPressDistributionService {
 
-  public keyEventObs = new Subject(); // Observable<KeyboardEvent>
+  public keyEventObs = new Subject<KeyboardEvent>(); // Observable<KeyboardEvent>
 
   constructor() { }
 
-  public distributeKeyPress(keyValue: string) {
+  public distributeKeyPress(keyValue: KeyboardEvent) {
     // console.log('distributeKeyPress->keyValue=', keyValue)
     this.keyEventObs.next(keyValue);
   }
