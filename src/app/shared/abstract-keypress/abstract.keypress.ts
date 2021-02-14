@@ -1,11 +1,12 @@
 import { Component, Directive, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { filter, map } from "rxjs/operators";
+import { aggregate } from "../operators/aggregate.operator";
 
 import { KeyPressDistributionService } from "../services/key-press-distribution.service";
 
 @Component({
-  selector: "abstract-kp",
+  selector: "app-dummy",
   template: "<div></div>"
 })
 export abstract class AbstractKeypress implements OnInit, OnDestroy {
@@ -17,12 +18,13 @@ export abstract class AbstractKeypress implements OnInit, OnDestroy {
     this.obsRef = this.keyServiceRef.keyEventObs
       .pipe(
         filter(this.permitKey),
-        map(this.convertToString)
+        aggregate(300),
+        map(this.convertToString.bind(this))
       )
       .subscribe(this.reactToKeyPress.bind(this));
   }
-  
-  abstract keyActions: {[key: string]: () => void};
+
+  abstract keyActions: { [key: string]: () => void };
   abstract reactToKeyPress(key: string): void;
 
   public ngOnDestroy() {
@@ -34,12 +36,30 @@ export abstract class AbstractKeypress implements OnInit, OnDestroy {
     return !disallowedKeys.includes(keyEvent.key);
   }
 
-  public convertToString(keyEvent: KeyboardEvent): string {
-    const modifierKeys = ["altKey", "ctrlKey", "shiftKey"];
-    let keyCode = "k-";
-    for (const code of modifierKeys) {
-      if (keyEvent[code]) keyCode += code.substr(0, 1);
+  public convertToString(keyEventList: KeyboardEvent[]): string {
+    if (keyEventList.length > 1)
+      return this.generateMultiKeystrokeString(keyEventList);
+    else {
+      const modifiers = this.modifierKeysToString(keyEventList[0]);
+      return `${modifiers}-${keyEventList[0].code}`;
     }
-    return `${keyCode}-${keyEvent.code}`;
+  }
+
+  public generateMultiKeystrokeString(keyEventList: KeyboardEvent[]): string {
+    const prefix = this.modifierKeysToString(keyEventList[0], "s-");
+    let keySequence = "";
+    for (const event of keyEventList) {
+      keySequence += event.key.toLowerCase();
+    }
+    return `${prefix}-${keySequence}`;
+  }
+
+  private modifierKeysToString(keypress: KeyboardEvent, prefix = "k-"): string {
+    const modifierKeys = ["altKey", "ctrlKey", "shiftKey"];
+    let keyCode = prefix;
+    for (const code of modifierKeys) {
+      if (keypress[code]) keyCode += code.substr(0, 1);
+    }
+    return keyCode;
   }
 }

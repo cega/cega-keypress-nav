@@ -9,7 +9,6 @@ import { KeyPressDistributionService } from "../../shared/services/key-press-dis
   styleUrls: ["./first-one.component.scss"]
 })
 export class FirstOneComponent extends AbstractKeypress {
-  
   userForm = this.fb.group({
     name: [""],
     age: [""]
@@ -21,18 +20,29 @@ export class FirstOneComponent extends AbstractKeypress {
   ) {
     super(keyService);
   }
-  
-  public keyActions: {[key: string]: () => void};
-  
+
+  public keyActions: { [key: string]: () => void } = {
+    "k--KeyA": () => {
+      console.log("reacting to A");
+    },
+    "s--asd": () => {
+      console.log("asd detected");
+    },
+    "k--F5": () => {
+      console.log("F5 clicked!!!");
+    }
+  };
+
   public reactToKeyPress(key: string) {
-    console.log('first one, x=', key);
+    console.log("first one, x=", key);
+    if (this.keyActions[key]) this.keyActions[key]();
   }
 
   public onSubmit() {
     console.log("form content", this.userForm.value);
   }
 
-  public stopKeyPressPropagation($event:KeyboardEvent) {
+  public stopKeyPressPropagation($event: KeyboardEvent) {
     $event.stopPropagation();
     console.log($event);
   }
