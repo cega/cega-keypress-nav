@@ -1,5 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +7,11 @@ import { Subject } from 'rxjs';
 export class KeyPressDistributionService {
 
   private keyEventSubject = new Subject<KeyboardEvent>();
-  public keyEventObs = this.keyEventSubject.asObservable();
+  public keyEventObs: Observable<KeyboardEvent> = this.keyEventSubject.asObservable();
   
   constructor() { }
 
-  public distributeKeyPress(keyValue: KeyboardEvent) {
+  public distributeKeyPress(keyValue: KeyboardEvent): void {
     this.keyEventSubject.next(keyValue);
   }
 }

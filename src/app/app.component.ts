@@ -8,8 +8,6 @@ import { KeyPressDistributionService } from "./shared/services/key-press-distrib
 })
 export class AppComponent {
   name = "Angular " + VERSION.major;
-  title = "keypress-poc";
-
   constructor(private keyService: KeyPressDistributionService) {
   }
 

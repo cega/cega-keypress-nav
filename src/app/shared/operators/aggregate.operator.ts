@@ -11,7 +11,7 @@ export function aggregate<T>(
   let timerRef = null;
 
   const handleTimeout = (subscriber: Subscriber<T[]>): TimerHandler => {
-    return () => {
+    return (): void => {
       const keyEventsCopy = aggregatedEventValues.slice(0);
       aggregatedEventValues = [];
       subscriber.next(keyEventsCopy);
