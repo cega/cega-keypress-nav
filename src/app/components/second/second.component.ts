@@ -16,15 +16,19 @@ export class SecondComponent extends AbstractKeypress {
     "k--KeyA": () => {
       console.log("reacting to A");
     },
-    "s-asd": () => {
+    "k--KeyR": () => {
+      console.log("reacting to R");
+    },
+    "s--asd": () => {
       console.log("asd");
     },
-    "k--Key5": () => {
+    "k-a-F5": () => {
       console.log("F5 clicked!!!");
     }
   };
 
   public reactToKeyPress(key: string) {
     console.log("second one, x=", key);
+    if (this.keyActions[key]) this.keyActions[key]();
   }
 }

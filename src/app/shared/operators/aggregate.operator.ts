@@ -5,12 +5,14 @@ import { Observable, Subscriber } from "rxjs";
 // https://torsten-muller.dev/rxjs/create-new-rx-js-operator-aggregating-events-for-a-length-of-time/
 
 export function aggregate<T>(
-  allowedTimeForNextEventInMs: number
+  allowedTimeForNextEventInMs: number,
+  limit?: number
 ): (source: Observable<T>) => Observable<T[]> {
   let aggregatedEventValues: T[] = [];
   let timerRef = null;
+  const maxKeypressCount = limit || 5;
 
-  const handleTimeout = (subscriber: Subscriber<T[]>): TimerHandler => {
+  const handleTimeout = (subscriber: Subscriber<T[]>): (() => void) => {
     return (): void => {
       const keyEventsCopy = aggregatedEventValues.slice(0);
       aggregatedEventValues = [];
@@ -23,12 +25,14 @@ export function aggregate<T>(
       source.subscribe({
         next(value) {
           if (value !== undefined && value !== null) {
-            if (timerRef) clearTimeout(timerRef);
-            timerRef = setTimeout(
-              handleTimeout(subscriber),
-              allowedTimeForNextEventInMs
-            );
             aggregatedEventValues.push(value);
+            if (timerRef) clearTimeout(timerRef);
+            if (aggregatedEventValues.length < maxKeypressCount) {
+              timerRef = setTimeout(
+                handleTimeout(subscriber),
+                allowedTimeForNextEventInMs
+              );
+            } else handleTimeout(subscriber)();
           }
         },
         error(error) {
