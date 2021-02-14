@@ -19,9 +19,10 @@ export abstract class AbstractKeypress implements OnInit, OnDestroy {
         filter(this.permitKey),
         map(this.convertToString)
       )
-      .subscribe(this.reactToKeyPress);
+      .subscribe(this.reactToKeyPress.bind(this));
   }
   
+  abstract keyActions: {[key: string]: () => void};
   abstract reactToKeyPress(key: string): void;
 
   public ngOnDestroy() {

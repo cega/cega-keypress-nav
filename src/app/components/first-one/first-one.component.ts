@@ -21,7 +21,9 @@ export class FirstOneComponent extends AbstractKeypress {
   ) {
     super(keyService);
   }
-
+  
+  public keyActions: {[key: string]: () => void};
+  
   public reactToKeyPress(key: string) {
     console.log('first one, x=', key);
   }
