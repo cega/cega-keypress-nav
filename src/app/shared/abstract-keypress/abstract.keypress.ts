@@ -51,13 +51,24 @@ export abstract class AbstractKeypress implements OnInit, OnDestroy {
     for (const event of keyEventList) {
       keySequence += event.key.toLowerCase();
     }
+    console.log(`${prefix}-${keySequence}`);
     return `${prefix}-${keySequence}`;
   }
 
   private modifierKeysToString(keypress: KeyboardEvent, prefix = "k-"): string {
     const modifierKeys = ["altKey", "ctrlKey", "shiftKey"];
     let keyCode = prefix;
+    console.log(`
+      keypress
+        code = ${keypress.code}
+        meta = ${keypress.metaKey} ${keypress['metaKey']}
+        shift = ${keypress.shiftKey}
+        ctrl = ${keypress.ctrlKey}
+        alt  = ${keypress.altKey} ${keypress['altKey']}
+      `);
+
     for (const code of modifierKeys) {
+      console.log(`keypress[code] = ${keypress[code]}`);
       if (keypress[code]) keyCode += code.substr(0, 1);
     }
     return keyCode;
